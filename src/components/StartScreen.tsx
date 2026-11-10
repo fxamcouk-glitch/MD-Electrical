@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Icon, Logo } from './Icon';
+import { BrandMark, Icon } from './Icon';
 import type { DrawingSummary } from '../state/types';
 
 interface Props {
@@ -19,10 +19,11 @@ export function StartScreen({ drawings, busy, onFile, onOpenSaved, onDeleteSaved
     <main className="start">
       <div className="start__inner">
         <div className="start__brand">
-          <Logo size={44} />
+          <BrandMark size={64} />
           <div>
             <h1 className="start__title">MD Electrical</h1>
-            <p className="start__sub">Plan markup</p>
+            <p className="start__sub">Electrical Contracting</p>
+            <p className="start__tool">Plan markup</p>
           </div>
         </div>
 

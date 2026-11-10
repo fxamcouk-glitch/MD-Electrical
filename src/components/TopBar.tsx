@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Icon, Logo } from './Icon';
+import { BrandMark, Icon } from './Icon';
 
 export type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
@@ -49,48 +49,24 @@ export function TopBar(p: Props) {
 
   return (
     <header className="topbar">
-      <button type="button" className="topbar__brand" onClick={p.onHome} title="All drawings">
-        <Logo />
-        <span className="topbar__brand-text">
-          MD Electrical <small>Plan markup</small>
-        </span>
-      </button>
+      <div className="topbar__head">
+        <button type="button" className="topbar__brand" onClick={p.onHome} title="All drawings">
+          <BrandMark size={40} />
+          <span className="topbar__brand-text">
+            MD Electrical <small>Plan markup</small>
+          </span>
+        </button>
 
-      <div className="topbar__doc" title={p.name}>
-        <span className="topbar__doc-name">{p.name}</span>
-        <span className={`topbar__save topbar__save--${p.saveState}`} role="status">
-          {SAVE_TEXT[p.saveState]}
-        </span>
-      </div>
+        <div className="topbar__doc" title={p.name}>
+          <span className="topbar__doc-name">{p.name}</span>
+          <span className={`topbar__save topbar__save--${p.saveState}`} role="status">
+            {SAVE_TEXT[p.saveState]}
+          </span>
+        </div>
 
-      <div className="topbar__group">
-        <button type="button" className="btn btn--ghost btn--narrow-only" onClick={p.onTogglePalette} aria-label="Symbols">
-          <Icon name="grid" /> <span className="hide-xs">Symbols</span>
+        <button type="button" className="btn hide-xs" onClick={p.onOpenFile} title="Open another PDF">
+          <Icon name="upload" /> <span>Open PDF</span>
         </button>
-        <button type="button" className="btn btn--ghost hide-xs" onClick={p.onOpenFile} title="Open another PDF" aria-label="Open another PDF">
-          <Icon name="upload" /> <span className="hide-sm">Open PDF</span>
-        </button>
-        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onUndo} disabled={!p.canUndo} title="Undo (Ctrl+Z)" aria-label="Undo">
-          <Icon name="undo" />
-        </button>
-        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onRedo} disabled={!p.canRedo} title="Redo (Ctrl+Shift+Z)" aria-label="Redo">
-          <Icon name="redo" />
-        </button>
-        <span className="topbar__sep" aria-hidden="true" />
-        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onZoomOut} title="Zoom out (−)" aria-label="Zoom out">
-          <Icon name="zoomOut" />
-        </button>
-        <span className="topbar__zoom" aria-live="polite" data-testid="zoom-readout">
-          {p.zoomPercent}%
-        </span>
-        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onZoomIn} title="Zoom in (+)" aria-label="Zoom in">
-          <Icon name="zoomIn" />
-        </button>
-        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onFit} title="Fit page (0)" aria-label="Fit page to window">
-          <Icon name="fit" />
-        </button>
-        <span className="topbar__sep" aria-hidden="true" />
-
         <div className="menu" ref={menuRef}>
           <button
             type="button"
@@ -100,7 +76,7 @@ export function TopBar(p: Props) {
             onClick={() => setMenu((v) => !v)}
             disabled={p.busy}
           >
-            <Icon name="download" /> <span className="hide-sm">{p.busy ? 'Preparing…' : 'Export'}</span>
+            <Icon name="download" /> <span>{p.busy ? 'Preparing…' : 'Export'}</span>
             <Icon name="chevronDown" size={16} />
           </button>
           {menu && (
@@ -132,7 +108,32 @@ export function TopBar(p: Props) {
             </div>
           )}
         </div>
-        <button type="button" className="btn btn--ghost btn--narrow-only btn--icon" onClick={p.onToggleInspector} aria-label="Selection and schedule">
+      </div>
+
+      <div className="topbar__tools" role="toolbar" aria-label="Plan tools">
+        <button type="button" className="btn btn--ghost btn--narrow-only" onClick={p.onTogglePalette} aria-label="Symbols">
+          <Icon name="grid" /> <span className="hide-xs">Symbols</span>
+        </button>
+        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onUndo} disabled={!p.canUndo} title="Undo (Ctrl+Z)" aria-label="Undo">
+          <Icon name="undo" />
+        </button>
+        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onRedo} disabled={!p.canRedo} title="Redo (Ctrl+Shift+Z)" aria-label="Redo">
+          <Icon name="redo" />
+        </button>
+        <span className="topbar__sep" aria-hidden="true" />
+        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onZoomOut} title="Zoom out (−)" aria-label="Zoom out">
+          <Icon name="zoomOut" />
+        </button>
+        <span className="topbar__zoom" aria-live="polite" data-testid="zoom-readout">
+          {p.zoomPercent}%
+        </span>
+        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onZoomIn} title="Zoom in (+)" aria-label="Zoom in">
+          <Icon name="zoomIn" />
+        </button>
+        <button type="button" className="btn btn--ghost btn--icon" onClick={p.onFit} title="Fit page (0)" aria-label="Fit page to window">
+          <Icon name="fit" />
+        </button>
+        <button type="button" className="btn btn--ghost btn--narrow-only btn--icon topbar__push" onClick={p.onToggleInspector} aria-label="Selection and schedule">
           <Icon name="sliders" />
         </button>
       </div>

@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { PDFDocument, StandardFonts, degrees, rgb } from 'pdf-lib';
+import { BrandMark } from '../components/Icon';
 import { MarkerShape } from '../components/MarkerShape';
 import { getMarkers, getSymbolScale } from '../state/reducer';
 import type { MarkupData } from '../state/types';
@@ -89,8 +90,13 @@ async function appendSchedule(doc: PDFDocument, data: MarkupData, title: string)
   const ink = rgb(0.08, 0.125, 0.18);
   let y = 790;
 
-  page.drawText('MD Electrical', { x: 48, y, size: 11, font: bold, color: rgb(0.85, 0.55, 0.04) });
-  y -= 26;
+  const markPx = 440;
+  const markPng = await rasterise(renderToStaticMarkup(<BrandMark size={markPx} />), (markPx * 98) / 110, markPx);
+  const mark = await doc.embedPng(markPng);
+  page.drawImage(mark, { x: 48, y: y - 30, width: 34 * (98 / 110), height: 34 });
+  page.drawText('MD ELECTRICAL', { x: 92, y: y - 8, size: 11, font: bold, color: ink });
+  page.drawText('CONTRACTING', { x: 92, y: y - 22, size: 8, font, color: rgb(0.31, 0.4, 0.42) });
+  y -= 64;
   page.drawText('Symbol schedule', { x: 48, y, size: 20, font: bold, color: ink });
   y -= 18;
   page.drawText(ascii(title), { x: 48, y, size: 10, font, color: rgb(0.33, 0.4, 0.48) });

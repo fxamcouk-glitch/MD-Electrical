@@ -52,11 +52,26 @@ export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   );
 }
 
-export function Logo({ size = 28 }: { size?: number }) {
+/** The MD Electrical Contracting mark, redrawn as vector from the supplied logo. Fixed hex colours so it also rasterises for PDF export. */
+export const BRAND = { teal: '#008f9a', orange: '#f48221' } as const;
+
+export function BrandMark({ size = 36 }: { size?: number }) {
+  const stroke = { stroke: '#fff', strokeWidth: 2.4, fill: 'none', strokeLinejoin: 'miter' as const };
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <rect width="32" height="32" rx="7" fill="var(--color-navy-700)" />
-      <path d="M18.5 4 8 18h7l-2 10 11-15h-7z" fill="var(--color-amber-500)" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={(size * 98) / 110}
+      height={size}
+      viewBox="0 0 98 110"
+      role="img"
+      aria-label="MD Electrical Contracting"
+    >
+      <rect x={0} y={0} width={48} height={48} fill={BRAND.teal} />
+      <rect x={51} y={13} width={47} height={48} fill={BRAND.orange} />
+      <rect x={0} y={50} width={48} height={48} fill={BRAND.orange} />
+      <rect x={51} y={64} width={47} height={46} fill={BRAND.teal} />
+      <path d="M13 35 V13 L24 27.5 L35 13 V35" {...stroke} />
+      <path d="M66 76 V99 H73 A11.5 11.5 0 0 0 73 76 Z" {...stroke} />
     </svg>
   );
 }

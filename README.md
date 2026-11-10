@@ -46,6 +46,10 @@ npm test         # unit tests for the markup state
 
 Marker positions are stored in PDF points on the page as displayed, so they stay put at any zoom.
 
+## Branding
+
+Colours are sampled from the MD Electrical Contracting logo and live in `src/styles/tokens.css` (teal `#008f9a`, orange `#f48221`). The header mark is redrawn as vector in `src/components/Icon.tsx` (`BrandMark`) because the supplied logo is only 154×166 px; `public/brand/md-electrical-logo.jpg` keeps the original for reference. Swap in an official SVG when one is available.
+
 ## Known limits
 
 - Everything is stored in the browser on one device; there is no account or sync yet.
