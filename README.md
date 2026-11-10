@@ -21,6 +21,10 @@ npm test         # unit tests for the markup state
 - **Autosave** on this device (IndexedDB). Recent drawings are listed on the start screen.
 - **Export**: marked-up PDF (original plan stays vector, symbols stamped on top, schedule page appended) and a CSV schedule.
 
+## Sample plan
+
+`samples/Sample-House-Extension-Plans.pdf` is a fictional two-sheet A3 set (ground and first floor, 1:50) of a large rear and side house extension, for trying the tool. Regenerate it with `node scripts/make-sample-plan.mjs`.
+
 ## Shortcuts
 
 | Key | Action |
